@@ -10,4 +10,5 @@
         <item>mils</item>
     </string-array>
     <string name="title_activity_delete_me">DeleteMe</string>
+    <string name="title_activity_history">HistoryActivity</string>
 </resources>

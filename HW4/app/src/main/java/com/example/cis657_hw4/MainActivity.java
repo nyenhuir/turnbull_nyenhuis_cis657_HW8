@@ -13,12 +13,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.example.cis657_hw4.dummy.HistoryContent;
+
+import org.joda.time.DateTime;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final int DIST_UNIT = 1;
+    public static int HISTORY_RESULT = 2;
+
     Boolean begin = true;
     Location loc1 = new Location("GPS");
     Location loc2 = new Location("GPS");
@@ -80,7 +86,12 @@ public class MainActivity extends AppCompatActivity {
                         Snackbar.LENGTH_LONG).show();
             }
 
-            else calcDistance();
+            else {
+                HistoryContent.HistoryItem item = new HistoryContent.HistoryItem(lat1str,
+                        long1str, lat2str, long2str, DateTime.now());
+                HistoryContent.addItem(item);
+                calcDistance();
+            }
 
         });
 
@@ -130,8 +141,14 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent,DIST_UNIT);
             return true;
         }
+        else if(item.getItemId() == R.id.action_history) {
+            Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+            startActivityForResult(intent, HISTORY_RESULT );
+            return true;
+        }
         return false;
     }
+
 
     //If a result is returned, this function is activated and stores the returned data
     @Override
@@ -145,13 +162,23 @@ public class MainActivity extends AppCompatActivity {
             long1.setText(data.getStringExtra("long1"));
             long2.setText(data.getStringExtra("long2"));
         }
+        else if (resultCode == HISTORY_RESULT) {
+            String[] vals = data.getStringArrayExtra("item");
+            this.lat1.setText(vals[0]);
+            this.long1.setText(vals[1]);
+            this.lat2.setText(vals[2]);
+            this.long2.setText(vals[3]);
+            this.calcDistance();  // code that updates the calcs.
+        }
+
 
         inputToString();
 
         //recalculates the distance/bearing information with updated units, if applicable
         if ((lat1str.length() != 0) && (lat2str.length() != 0) &&
-                (long1str.length() != 0) && (long2str.length() != 0))
-                    calcDistance();
+                (long1str.length() != 0) && (long2str.length() != 0)) {
+            calcDistance();
+        }
     }
 
 

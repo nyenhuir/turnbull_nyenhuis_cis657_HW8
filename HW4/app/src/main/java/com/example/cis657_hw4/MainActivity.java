@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
     //If a result is returned, this function is activated and stores the returned data
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
+
         if(resultCode == DIST_UNIT) {
             DistUnit = data.getStringExtra("distunits");
             BearUnit = data.getStringExtra("bearunits");

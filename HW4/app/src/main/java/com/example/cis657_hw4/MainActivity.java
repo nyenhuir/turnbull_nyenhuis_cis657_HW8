@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
             lat2.setText("");
             long1.setText("");
             long2.setText("");
-            distanceresult.setText("");
-            bearingresult.setText("");
+            distanceresult.setText("Distance: ");
+            bearingresult.setText("Bearing: ");
             lat1.onEditorAction(EditorInfo.IME_ACTION_DONE);
             lat2.onEditorAction(EditorInfo.IME_ACTION_DONE);
             long1.onEditorAction(EditorInfo.IME_ACTION_DONE);
@@ -208,8 +208,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-       distanceresult.setText(""+distance+" "+DistUnit);
-       bearingresult.setText(""+bearing+" "+BearUnit);
+       distanceresult.setText("Distance: "+distance+" "+DistUnit);
+       bearingresult.setText("Bearing: "+bearing+" "+BearUnit);
     }
 
     void inputToString(){
